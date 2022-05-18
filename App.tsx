@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useFonts, Nunito_300Light, Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 
 import Monitor from './src/screens/monitor';
+import WithdrawProvider from './src/contexts/withdraw_context';
 
 export default function App() {
 
@@ -19,8 +20,10 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar style="auto" />
-      <Monitor />
+      <WithdrawProvider>
+        <StatusBar style="auto" />
+        <Monitor />
+      </WithdrawProvider>
     </View >
   );
 }

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { ContainerItemSwipeable, IndicatorModeRigSwipeable, TextSwipeable } from './styles';
 
-// import { Container } from './styles';
-
 export interface DataSwipeableInterface { id: string, name: string, active?: boolean }
 
-const SwipeableList: React.FC<{ data: DataSwipeableInterface[] }> = (props) => {
+const SwipeableList: React.FC<{ data: DataSwipeableInterface[], pressableItem: (id: string) => void }> = (props) => {
 
 
-    const [selected, setSelected] = useState<string>('1')
+    const [selected, setSelected] = useState<string>('')
 
+    useEffect(() => {
+
+        if (props.data.length > 0) {
+            onPressItem(props.data[0].id)
+        }
+
+    }, [props.data])
 
     function SwipeableItem({ item }: { item: DataSwipeableInterface }): JSX.Element {
 
@@ -20,7 +25,7 @@ const SwipeableList: React.FC<{ data: DataSwipeableInterface[] }> = (props) => {
         return (
             ///@ts-ignore: Unreachable code error
             <ContainerItemSwipeable
-                onPress={() => setSelected(item.id)}
+                onPress={() => onPressItem(item.id)}
                 mode={mode}
             >
                 {/* @ts-ignore: Unreachable code error */}
@@ -33,6 +38,10 @@ const SwipeableList: React.FC<{ data: DataSwipeableInterface[] }> = (props) => {
         )
     }
 
+    function onPressItem(id: string) {
+        setSelected(id)
+        props.pressableItem(id)
+    }
 
     return (
         <FlatList
