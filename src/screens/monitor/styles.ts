@@ -9,7 +9,7 @@ export const Container = styled(LinearGradient, {
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: '15%',
-    paddingBottom: '5%',
+    paddingBottom: '5%' 
 });
 
 export const MonitorPrice = styled('View', {
@@ -23,6 +23,7 @@ export const MonitorPrice = styled('View', {
     shadowColor: ColorUtils.primary_color,
     shadowOpacity: 0.8,
     shadowRadius: 6,
+    marginBottom: '10%',
     shadowOffset: { width: 0, height: 0 },
 })
 
@@ -60,6 +61,26 @@ export const Subtitles = styled('Text', {
     fontFamily: FontUtils.regular,
     fontSize: 18,
     color: ColorUtils.primary_whyte,
+})
+
+export const DisabledWorkers = styled('View', {
+    height: 15,
+    width: 15,
+    borderRadius: 7.5,
+    backgroundColor: ColorUtils.red_color
+})
+
+
+export const DisableWorkersSubtitles = styled('Text', {
+    fontFamily: FontUtils.regular,
+    fontSize: 12,
+    color: ColorUtils.primary_whyte,
+})
+
+export const ContainerDisabled = styled('View', {
+    flexDirection: 'row',
+    width: '45%',
+    justifyContent: 'space-evenly'
 })
 
 export const SubtitlesValues = styled('Text', {

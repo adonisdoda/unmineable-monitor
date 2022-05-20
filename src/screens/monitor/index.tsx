@@ -1,18 +1,29 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useContext, useEffect } from 'react';
-import { Platform, SafeAreaView, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { ColorUtils } from '../../../assets/utils/colors';
+import { Button } from '../../components/button';
 import SwipeableList from '../../components/swipeable_list';
 import { WithdrawContext } from '../../contexts/withdraw_context';
 import { UnmineableResponseInterface, unmineable_api } from '../../services/axios';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-import { Balance, BalancePerDay, Container, CurrentBalanceSubtitle, Divider, MonitorPrice, SubtitleContainer, Subtitles, SubtitlesValues, WrapperSubtitle } from './styles';
+import {
+    Balance, DisableWorkersSubtitles, DisabledWorkers,
+    BalancePerDay,
+    Container, CurrentBalanceSubtitle, Divider, MonitorPrice, SubtitleContainer, Subtitles, SubtitlesValues,
+    WrapperSubtitle, ContainerDisabled
+} from './styles';
+import { StackNavigatorType } from '../../settings/navigations/stack';
 
 const Monitor: React.FC = () => {
 
     const [workers, setWorkers] = useState<{ id: string, name: string, active: boolean, hr: number, coin: string }[]>([])
     const [workerPressable, setWorkerPressable] = useState<{ id: string, name: string, active: boolean, hr: number, coin: string }>()
 
+    const navigation = useNavigation<StackNavigationProp<StackNavigatorType>>();
     const { coins, balance, balancePerDay, balanceCurrency } = useContext(WithdrawContext)
+
 
     useEffect(() => {
 
@@ -61,12 +72,39 @@ const Monitor: React.FC = () => {
 
     }, [coins])
 
-    console.log(workers)
+    const WorkerInfoComponent: React.FC = () => {
+
+        if (workers.length <= 0) {
+            return (
+                <ContainerDisabled>
+                    <DisabledWorkers />
+                    <DisableWorkersSubtitles>NO ACTIVE WORKERS</DisableWorkersSubtitles>
+                </ContainerDisabled>
+            )
+        }
+
+
+        return (
+            <>
+                <SwipeableList
+                    data={workers}
+                    pressableItem={(id: string) => setWorkerPressable(workers.find(i => i.id === id))}
+                />
+                <WrapperSubtitle>
+                    <SubtitleContainer>
+                        <Subtitles>Hashrate</Subtitles>
+                        <SubtitlesValues>{workerPressable?.hr}Mh</SubtitlesValues>
+                    </SubtitleContainer>
+                </WrapperSubtitle>
+            </>
+        )
+    }
 
     return (
         <Container colors={[ColorUtils.secundary_color, ColorUtils.primary_black]}>
             <MonitorPrice>
                 <CurrentBalanceSubtitle>CURRENT BALANCE</CurrentBalanceSubtitle>
+
                 <Balance>
                     ~ {
                         Platform.select({
@@ -86,24 +124,12 @@ const Monitor: React.FC = () => {
                 </BalancePerDay>
             </MonitorPrice>
 
+            <Button mode='MD' txt={`${coins.length} coins`} onPress={() => navigation.navigate('Coins')} />
+
             <Divider />
 
             <View style={{ flex: 1, height: 50, top: 10 }} >
-                <SwipeableList
-                    data={workers}
-                    pressableItem={(id: string) => setWorkerPressable(workers.find(i => i.id === id))}
-                />
-                <WrapperSubtitle>
-                    <SubtitleContainer>
-                        <Subtitles>Hashrate</Subtitles>
-                        <SubtitlesValues>{workerPressable?.hr}Mh</SubtitlesValues>
-                    </SubtitleContainer>
-
-                    <SubtitleContainer>
-                        <Subtitles>Coins</Subtitles>
-                        <SubtitlesValues>{coins.length}</SubtitlesValues>
-                    </SubtitleContainer>
-                </WrapperSubtitle>
+                <WorkerInfoComponent />
             </View>
 
         </Container>

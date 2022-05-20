@@ -19,8 +19,8 @@ const SwipeableList: React.FC<{ data: DataSwipeableInterface[], pressableItem: (
 
     function SwipeableItem({ item }: { item: DataSwipeableInterface }): JSX.Element {
 
-        const mode = item.id == selected ? 'selected' : 'unselected'
-        const active = item.active ? 'selected' : 'unselected'
+        const [mode, active] = item.id == selected ? 'selected' : 'unselected'
+        // const active = item.active ? 'selected' : 'unselected'
 
         return (
             ///@ts-ignore: Unreachable code error

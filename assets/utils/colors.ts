@@ -8,5 +8,7 @@ export const ColorUtils = {
     primary_whyte: '#FFFFFF',
     secundary_white: '#E8E8E8',
 
-    blur_color: '#2D2741'
+    blur_color: '#2D2741',
+
+    red_color: '#C74D4D'
 }
