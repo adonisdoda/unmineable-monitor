@@ -9,7 +9,7 @@ export const Container = styled(LinearGradient, {
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: '15%',
-    paddingBottom: '5%' 
+    paddingBottom: '5%'
 });
 
 export const MonitorPrice = styled('View', {
@@ -95,6 +95,7 @@ export const SubtitlesValues = styled('Text', {
 
 export const SubtitleContainer = styled('View', {
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'space-between',
     height: '5%',
     marginBottom: '20%'

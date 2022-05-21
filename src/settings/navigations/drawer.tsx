@@ -2,7 +2,8 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ColorUtils } from '../../../assets/utils/colors';
 import { StackNavigator } from './stack';
-// import { Feather } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
+import { Text } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,16 +16,15 @@ export const DrawerNavigation: React.FC = () => {
             initialRouteName="Start"
             drawerContent={(props) => <></>}
             screenOptions={{
-                headerTransparent: true,
                 headerTitleStyle: { color: "transparent" },
                 drawerType: 'front',
-                headerTintColor: ColorUtils.secundary_white,
-                // drawerIcon: ({ color }) => (<Feather name="settings" size={22} color={ColorUtils.primary_whyte} />),
+                headerShown: false,
                 overlayColor: ColorUtils.blur_color,
                 drawerStyle: {
                     backgroundColor: ColorUtils.blur_color,
                     width: 300,
-                }
+                },
+                swipeEnabled: false
             }}
         >
             <Drawer.Screen name="Stack" component={StackNavigator} />

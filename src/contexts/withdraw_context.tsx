@@ -14,7 +14,8 @@ export const WithdrawContext = createContext(
 
 const WithdrawProvider: React.FC = ({ children }) => {
 
-    const [coins, setCoins] = useState<CoinsWithdrawInterface[]>([{ name: 'SOL', balance: 0.0, balancePerDay: 0.0, uuid: '' }])//TODO: Adicionar moedas de forma dinâmica
+    //TODO:Adicionar
+    const [coins, setCoins] = useState<CoinsWithdrawInterface[]>([{ name: 'SOL', balance: 0.0, balancePerDay: 0.0, uuid: 'dc46e17f-5025-46fc-a576-bd82faffa63f' }])//TODO: Adicionar moedas de forma dinâmica
     const [address, setAddress] = useState<string>('')//TODO: Adicionar carteira
     const [balanceCurrency, setBalanceCurrency] = useState<string>('BRL')
 
