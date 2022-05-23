@@ -10,5 +10,7 @@ export const ColorUtils = {
 
     blur_color: '#2D2741',
 
-    red_color: '#C74D4D'
+    red_color: '#C74D4D',
+
+    switch_selected_color: '#5E5778'
 }
