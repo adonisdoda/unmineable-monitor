@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios"
 import React, { createContext, useEffect, useState } from "react"
 import { nomics_api, UnmineableResponseInterface, unmineable_api } from "../services/axios"
+import Feather from '@expo/vector-icons/Feather'
 
 export const WithdrawContext = createContext(
     {} as {
@@ -15,7 +16,7 @@ export const WithdrawContext = createContext(
 const WithdrawProvider: React.FC = ({ children }) => {
 
     const [coins, setCoins] = useState<CoinsWithdrawInterface[]>([{ name: 'SOL', balance: 0.0, balancePerDay: 0.0, uuid: '' }])//TODO: Adicionar moedas de forma dinâmica
-    const [address, setAddress] = useState<string>('')//TODO: Adicionar carteira
+    const [address, setAddress] = useState<string>('2trnLmBekxTwzriEMLaJfoj8TW6KumisNXyFH9J1wMQB')//TODO: Adicionar carteira
     const [balanceCurrency, setBalanceCurrency] = useState<string>('BRL')
 
     const [balance, setBalance] = useState<number>(0.0)
@@ -70,7 +71,7 @@ const WithdrawProvider: React.FC = ({ children }) => {
             if (element.data.success) {
                 coins[index].balancePerDay = element.data.data.rewarded.past_24h
 
-                setCoins(coins)
+                setCoins([...coins])
             }
         });
     }

@@ -27,21 +27,23 @@ const Monitor: React.FC = () => {
 
     useEffect(() => {
 
-        if (coins.length >= 1) {
+        console.log("entrei aqui :")
+
+        if (coins.length > 0) {
 
             coins.forEach(async coin => {
 
-                if (coin.uuid !== undefined) {
+                if (coin.uuid) {
 
                     const { data: { data } } = await unmineable_api
                         .get<UnmineableResponseInterface<AlgorithmsUnmineableResponse>>(`account/${coin.uuid}/workers`)
 
-                    //TODO: Adicionar outros workers e melhorar esse código
-                    if (data.etchash.workers.length > 0) {
-                        data.etchash.workers.forEach(element => {
+
+                    for (const strategy in data) {
+                        data[strategy as keyof AlgorithmsUnmineableResponse].workers.forEach(element => {
                             setWorkers([...workers,
                             {
-                                id: `${coin.uuid}${coin.name}${coin.name}`,
+                                id: `${coin.uuid}${coin.name}${element.name}`,
                                 name: element.name,
                                 active: element.online,
                                 hr: element.rhr,
@@ -49,21 +51,6 @@ const Monitor: React.FC = () => {
                             }])
                         })
                     }
-
-                    if (data.randomx.workers.length > 0) {
-                        data.randomx.workers.forEach(element => {
-
-                            setWorkers([...workers,
-                            {
-                                id: `${coin.uuid}${coin.name}${coin.name}`,
-                                name: element.name,
-                                active: element.online,
-                                hr: element.rhr / 1000,
-                                coin: coin.name
-                            }])
-                        })
-                    }
-
                 }
 
             })

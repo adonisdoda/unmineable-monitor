@@ -19,7 +19,7 @@ export const DrawerNavigation: React.FC = () => {
                 headerTitleStyle: { color: "transparent" },
                 drawerType: 'front',
                 headerTintColor: ColorUtils.secundary_white,
-                // drawerIcon: ({ color }) => (<Feather name="settings" size={22} color={ColorUtils.primary_whyte} />),
+                swipeEnabled: false,
                 overlayColor: ColorUtils.blur_color,
                 drawerStyle: {
                     backgroundColor: ColorUtils.blur_color,
