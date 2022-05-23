@@ -1,11 +1,10 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { Container } from './styles';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
 import { ColorUtils } from '../../../assets/utils/colors';
 
-const DrawerBackButton: React.FC = () => {
+const DrawerButton: React.FC = () => {
 
     const navigation = useNavigation();
 
@@ -16,4 +15,4 @@ const DrawerBackButton: React.FC = () => {
     );
 }
 
-export default DrawerBackButton;
+export { DrawerButton }

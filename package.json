@@ -28,6 +28,7 @@
     "react-native-reanimated": "~2.8.0",
     "react-native-safe-area-context": "4.2.4",
     "react-native-screens": "~3.11.1",
+    "react-native-switch-selector": "^2.2.1",
     "stitches-native": "^0.0.1-12"
   },
   "devDependencies": {

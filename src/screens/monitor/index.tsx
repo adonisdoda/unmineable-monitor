@@ -7,15 +7,11 @@ import SwipeableList from '../../components/swipeable_list';
 import { WithdrawContext } from '../../contexts/withdraw_context';
 import { UnmineableResponseInterface, unmineable_api } from '../../services/axios';
 import { StackNavigationProp } from '@react-navigation/stack';
-
 import {
-    Balance, DisableWorkersSubtitles, DisabledWorkers,
-    BalancePerDay,
-    Container, CurrentBalanceSubtitle, Divider, MonitorPrice, SubtitleContainer, Subtitles, SubtitlesValues,
-    WrapperSubtitle, ContainerDisabled
+    Balance, BalancePerDay, ContainerDisabled, DisabledWorkers, DisableWorkersSubtitles, Container, CurrentBalanceSubtitle, Divider, MonitorPrice, SubtitleContainer, Subtitles, SubtitlesValues, WrapperSubtitle
 } from './styles';
 import { StackNavigatorType } from '../../settings/navigations/stack';
-import DrawerBackButton from '../../components/drawer_back_button';
+import { DrawerButton } from '../../components/drawer_button';
 
 const Monitor: React.FC = () => {
 
@@ -26,12 +22,10 @@ const Monitor: React.FC = () => {
     const { coins, balance, balancePerDay, balanceCurrency } = useContext(WithdrawContext)
 
     useLayoutEffect(() => {
-        navigation.setOptions({ headerLeft: () => <DrawerBackButton /> })
+        navigation.setOptions({ headerLeft: () => <DrawerButton /> })
     }, [])
 
     useEffect(() => {
-
-        console.log("entrei aqui :")
 
         if (coins.length > 0) {
 
@@ -66,14 +60,14 @@ const Monitor: React.FC = () => {
 
     const WorkerInfoComponent: React.FC = () => {
 
-        // if (workers.length <= 0) {
-        //     return (
-        //         <ContainerDisabled>
-        //             <DisabledWorkers />
-        //             <DisableWorkersSubtitles>NO ACTIVE WORKERS</DisableWorkersSubtitles>
-        //         </ContainerDisabled>
-        //     )
-        // }
+        if (workers.length <= 0) {
+            return (
+                <ContainerDisabled>
+                    <DisabledWorkers />
+                    <DisableWorkersSubtitles>NO ACTIVE WORKERS</DisableWorkersSubtitles>
+                </ContainerDisabled>
+            )
+        }
 
 
         return (
@@ -121,16 +115,7 @@ const Monitor: React.FC = () => {
             <Divider />
 
             <View style={{ flex: 1, height: 50, top: 10 }} >
-                <SwipeableList
-                    data={workers}
-                    pressableItem={(id: string) => setWorkerPressable(workers.find(i => i.id === id))}
-                />
-                <WrapperSubtitle>
-                    <SubtitleContainer>
-                        <Subtitles>Hashrate</Subtitles>
-                        <SubtitlesValues>{workerPressable?.hr}Mh</SubtitlesValues>
-                    </SubtitleContainer>
-                </WrapperSubtitle>
+                <WorkerInfoComponent />
             </View>
 
         </Container>
