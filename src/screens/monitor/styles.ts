@@ -95,6 +95,7 @@ export const SubtitlesValues = styled('Text', {
 
 export const SubtitleContainer = styled('View', {
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'space-between',
     height: '10%',
     marginBottom: '20%'

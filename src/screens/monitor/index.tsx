@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { ColorUtils } from '../../../assets/utils/colors';
 import { Button } from '../../components/button';
@@ -15,6 +15,7 @@ import {
     WrapperSubtitle, ContainerDisabled
 } from './styles';
 import { StackNavigatorType } from '../../settings/navigations/stack';
+import DrawerBackButton from '../../components/drawer_back_button';
 
 const Monitor: React.FC = () => {
 
@@ -24,6 +25,9 @@ const Monitor: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<StackNavigatorType>>();
     const { coins, balance, balancePerDay, balanceCurrency } = useContext(WithdrawContext)
 
+    useLayoutEffect(() => {
+        navigation.setOptions({ headerLeft: () => <DrawerBackButton /> })
+    }, [])
 
     useEffect(() => {
 
@@ -59,16 +63,17 @@ const Monitor: React.FC = () => {
 
     }, [coins])
 
+
     const WorkerInfoComponent: React.FC = () => {
 
-        if (workers.length <= 0) {
-            return (
-                <ContainerDisabled>
-                    <DisabledWorkers />
-                    <DisableWorkersSubtitles>NO ACTIVE WORKERS</DisableWorkersSubtitles>
-                </ContainerDisabled>
-            )
-        }
+        // if (workers.length <= 0) {
+        //     return (
+        //         <ContainerDisabled>
+        //             <DisabledWorkers />
+        //             <DisableWorkersSubtitles>NO ACTIVE WORKERS</DisableWorkersSubtitles>
+        //         </ContainerDisabled>
+        //     )
+        // }
 
 
         return (
@@ -116,7 +121,16 @@ const Monitor: React.FC = () => {
             <Divider />
 
             <View style={{ flex: 1, height: 50, top: 10 }} >
-                <WorkerInfoComponent />
+                <SwipeableList
+                    data={workers}
+                    pressableItem={(id: string) => setWorkerPressable(workers.find(i => i.id === id))}
+                />
+                <WrapperSubtitle>
+                    <SubtitleContainer>
+                        <Subtitles>Hashrate</Subtitles>
+                        <SubtitlesValues>{workerPressable?.hr}Mh</SubtitlesValues>
+                    </SubtitleContainer>
+                </WrapperSubtitle>
             </View>
 
         </Container>

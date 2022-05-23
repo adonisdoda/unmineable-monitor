@@ -19,10 +19,9 @@ export const StackNavigator: React.FC = () => {
         ///@ts-ignore: Unreachable code error
         <Stack.Navigator
             screenOptions={() => ({
-                // headerTransparent: true,
-                // headerBackTitleVisible: false,
-                headerShown: false,
-                // headerTitleStyle: { color: 'transparent' },
+                headerTransparent: true,
+                headerBackTitleVisible: false,
+                headerTitleStyle: { color: 'transparent' },
             })}
         >
             <Stack.Screen name="Monitor" component={Monitor} />
